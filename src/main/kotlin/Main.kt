@@ -1,37 +1,44 @@
 fun main() {
 
-    printFinalTemperature(
-        27.0,
-        "Celsius",
-        "Fahrenheit"
-    ) {
-        (9 * it + 160) / 5
+    val phone = FoldablePhone()
+
+    phone.openPhone()
+    phone.checkPhoneScreenLight()
+    phone.closePhone()
+    phone.checkPhoneScreenLight()
+}
+
+open class Phone(var isScreenLightOn: Boolean = false) {
+    open fun switchOn() {
+        isScreenLightOn = true
     }
 
-    printFinalTemperature(
-        350.0,
-        "Kelvin",
-        "Fahrenheit"
-    ) {
-        it - 273.15
+    fun switchOff() {
+        isScreenLightOn = false
     }
 
-    printFinalTemperature(
-        10.0,
-        "Fahrenheit",
-        "Kelvin"
-    ) {
-        5 / 9 * (it - 32) + 273.15
+    fun checkPhoneScreenLight() {
+        val phoneScreenLight = if (isScreenLightOn) "on" else "off"
+        println("The phone screen's light is $phoneScreenLight.")
     }
 }
 
-fun printFinalTemperature(
-    initialMeasurement: Double,
-    initialUnit: String,
-    finalUnit: String,
-    conversionFormula: (Double) -> Double
-) {
-    val finalMeasurement = String.format("%.2f", conversionFormula(initialMeasurement))
-    val initialMeasurement = String.format("%.2f", initialMeasurement)
-    println("$initialMeasurement degrees $initialUnit is $finalMeasurement degrees $finalUnit.")
+class FoldablePhone() : Phone() {
+
+    var isFolded: Boolean = true
+    override fun switchOn() {
+        if (!isFolded) {
+            isScreenLightOn = true
+        }
+    }
+
+    fun openPhone(){
+        isFolded = false
+        switchOn()
+    }
+
+    fun closePhone(){
+        isFolded = true
+        switchOff()
+    }
 }
