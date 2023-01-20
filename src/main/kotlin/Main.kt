@@ -1,19 +1,37 @@
 fun main() {
 
-    val child = 5
-    val adult = 28
-    val senior = 87
+    printFinalTemperature(
+        27.0,
+        "Celsius",
+        "Fahrenheit"
+    ) {
+        (9 * it + 160) / 5
+    }
 
-    val isMonday = true
+    printFinalTemperature(
+        350.0,
+        "Kelvin",
+        "Fahrenheit"
+    ) {
+        it - 273.15
+    }
 
-    println("The movie ticket price for a person aged $child is  \$${ticketPrice(child, isMonday)}.")
-    println("The movie ticket price for a person aged $adult is \$${ticketPrice(adult, isMonday)}.")
-    println("The movie ticket price for a person aged $senior is \$${ticketPrice(senior, isMonday)}.")
+    printFinalTemperature(
+        10.0,
+        "Fahrenheit",
+        "Kelvin"
+    ) {
+        5 / 9 * (it - 32) + 273.15
+    }
 }
 
-fun ticketPrice(age: Int, isMonday: Boolean): Int = when {
-    (age in 1..12) -> 15
-    (age in 13..60) -> if (isMonday) 25 else 30
-    (age in 61..100) -> 20
-    else -> -1
+fun printFinalTemperature(
+    initialMeasurement: Double,
+    initialUnit: String,
+    finalUnit: String,
+    conversionFormula: (Double) -> Double
+) {
+    val finalMeasurement = String.format("%.2f", conversionFormula(initialMeasurement))
+    val initialMeasurement = String.format("%.2f", initialMeasurement)
+    println("$initialMeasurement degrees $initialUnit is $finalMeasurement degrees $finalUnit.")
 }
