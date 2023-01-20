@@ -1,7 +1,28 @@
-fun main(args: Array<String>) {
-    println("Hello World!")
+fun main() {
 
-    // Try adding program arguments via Run/Debug configuration.
-    // Learn more about running applications: https://www.jetbrains.com/help/idea/running-applications.html.
-    println("Program arguments: ${args.joinToString()}")
+    val morningNotification = 51
+    val eveningNotification = 135
+
+    printNotificationSummary(morningNotification)
+    printNotificationSummary(eveningNotification)
+}
+
+fun printNotificationSummary(numberOfMessages: Int) {
+
+
+    var message =
+        if (numberOfMessages < 100)
+            "You have $numberOfMessages notifications."
+         else
+            "You phone is blowing up! You have 99+ notifications."
+
+    message = when(numberOfMessages < 100){
+        true -> "You have $numberOfMessages notifications."
+        false -> "You phone is blowing up! You have 99+ notifications."
+    }
+    message = when{
+        (numberOfMessages < 100) -> "You have $numberOfMessages notifications."
+        else -> "You phone is blowing up! You have 99+ notifications."
+    }
+    println(message)
 }
