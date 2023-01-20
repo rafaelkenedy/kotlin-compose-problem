@@ -1,27 +1,33 @@
 fun main() {
 
+    val amanda = Person("Amanda", 33, "play tennis", null)
+    val wendell = Person("Wendell", 30, "play videogames", amanda)
 
-    val song = Song(
-        "You and Me",
-        "Lifehouse",
-        2005,
-        178_000_000
-    )
-
-    song.printDescription()
-    println(song.isPopular)
+    amanda.showProfile()
+    println()
+    wendell.showProfile()
 }
 
-class Song(
-    val title: String,
-    val artist: String,
-    val yearPublished: Int,
-    val playCount: Int
+class Person(
+    val name: String,
+    val age: Int,
+    val hobby: String?,
+    val referrer: Person?
 ) {
-
-    val isPopular = playCount >= 1000
-
-    fun printDescription() {
-        println("$title, performed by $artist, was released in $yearPublished")
+    fun showProfile() {
+        println("Name: $name")
+        println("Age: $age")
+        if (!hobby.isNullOrEmpty()) {
+            print("Likes to ${hobby}.")
+        }
+        if (referrer != null){
+            print(" Has a referrer named ${referrer.name}")
+            if (!referrer.hobby.isNullOrEmpty()) {
+                println(", who likes to ${referrer.hobby}.")
+            } else println(".")
+        } else {
+            println(" Doesn't have a referrer.")
+        }
     }
 }
+
