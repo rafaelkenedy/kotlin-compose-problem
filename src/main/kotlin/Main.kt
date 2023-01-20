@@ -1,37 +1,27 @@
 fun main() {
 
-    printFinalTemperature(
-        27.0,
-        "Celsius",
-        "Fahrenheit"
-    ) {
-        (9 * it + 160) / 5
-    }
 
-    printFinalTemperature(
-        350.0,
-        "Kelvin",
-        "Fahrenheit"
-    ) {
-        it - 273.15
-    }
+    val song = Song(
+        "You and Me",
+        "Lifehouse",
+        2005,
+        178_000_000
+    )
 
-    printFinalTemperature(
-        10.0,
-        "Fahrenheit",
-        "Kelvin"
-    ) {
-        5 / 9 * (it - 32) + 273.15
-    }
+    song.printDescription()
+    println(song.isPopular)
 }
 
-fun printFinalTemperature(
-    initialMeasurement: Double,
-    initialUnit: String,
-    finalUnit: String,
-    conversionFormula: (Double) -> Double
+class Song(
+    val title: String,
+    val artist: String,
+    val yearPublished: Int,
+    val playCount: Int
 ) {
-    val finalMeasurement = String.format("%.2f", conversionFormula(initialMeasurement))
-    val initialMeasurement = String.format("%.2f", initialMeasurement)
-    println("$initialMeasurement degrees $initialUnit is $finalMeasurement degrees $finalUnit.")
+
+    val isPopular = playCount >= 1000
+
+    fun printDescription() {
+        println("$title, performed by $artist, was released in $yearPublished")
+    }
 }
